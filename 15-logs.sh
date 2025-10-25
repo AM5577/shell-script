@@ -1,12 +1,14 @@
 #!/bin/bash
-USERID=(id -u)
+USERID=$(id -u)
 R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
 LOGS_FOLDER="/var/log/shellscript-logs"
-LOG_FILE=$(echo $0 | cut -d "." -f1 )
+LOGS_FILE=$(echo $0 | cut -d "." -f1 )
 TIMESTAMP=$(date +%Y-%m-%d-%H-%M-%S)
 LOG_FILE_NAME="$LOGS_FOLDER/$LOGS_FILE-$TIMESTAMP.log"
+# Ensure log folder exits
+mkdir -p $LOGS_FOLDER
 
 VALIDATE(){
     if [ $1 -ne 0 ]
