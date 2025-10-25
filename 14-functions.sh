@@ -1,5 +1,9 @@
 #!/bin/bash
 
+R="\e[31m"
+G="\e[32m"
+Y="\e[33m"
+
 USERID=(id -u)
  if [ $USERID -ne 0 ]
  then
@@ -10,10 +14,10 @@ fi
 VALIDATE(){
     if [ $1 -ne 0 ]
     then 
-        echo "$2..... Failure"
+        echo -e "$2..... $R Failure"
         exit 1
     else
-        echo "Installing MYSQL Success" b 
+        echo -e "$2..... $R Success"
     fi
 }
 
@@ -23,7 +27,7 @@ then
     yum install mysql -y 
     VALIDATE $? "Installing MYSQL"
 else
-    echo "Mysql is already installed"
+    echo -e "Mysql is already $Y installed"
 fi
 
 yum list installed git
@@ -32,6 +36,6 @@ then
     yum install git -y 
     VALIDATE $? "Installing git"
 else
-    echo "git is already installed"
+    echo -e "git is already $Y installed"
 fi
 
