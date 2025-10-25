@@ -8,7 +8,6 @@ LOG_FILE=$(echo $0 | cut -d "." -f1 )
 TIMESTAMP=$(date +%Y-%m-%d-%H-%M-%S)
 LOG_FILE_NAME="$LOGS_FOLDER/$LOGS_FILE-$TIMESTAMP.log"
 
-
 USERID=(id -u)
  if [ $USERID -ne 0 ]
  then
@@ -26,9 +25,9 @@ VALIDATE(){
     fi
 }
 
-echo "Script started executing at: $TIMESTAMP" &>>$LOG_FILE
+echo "Script started executing at: $TIMESTAMP" &>>$LOG_FILE_NAME
 
-yum list installed mysql &>>$LOGS_FILE
+yum list installed mysql &>>$LOG_FILE_NAME
 if [ $? -ne 0 ]
 then
     yum install mysql -y 
@@ -37,7 +36,7 @@ else
     echo -e "Mysql is already $Y installed"
 fi
 
-yum list installed git &>>$LOGS_FILE
+yum list installed git &>>$LOG_FILE_NAME
 if [ $? -ne 0 ]
 then
     yum install git -y 
