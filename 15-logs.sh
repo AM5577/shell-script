@@ -1,5 +1,5 @@
 #!/bin/bash
-
+USERID=(id -u)
 R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
@@ -7,13 +7,6 @@ LOGS_FOLDER="/var/log/shellscript-logs"
 LOG_FILE=$(echo $0 | cut -d "." -f1 )
 TIMESTAMP=$(date +%Y-%m-%d-%H-%M-%S)
 LOG_FILE_NAME="$LOGS_FOLDER/$LOGS_FILE-$TIMESTAMP.log"
-
-USERID=(id -u)
- if [ $USERID -ne 0 ]
- then
-    echo "You must have sudo access to exit the script"
-    exit 1
-fi
 
 VALIDATE(){
     if [ $1 -ne 0 ]
@@ -26,6 +19,12 @@ VALIDATE(){
 }
 
 echo "Script started executing at: $TIMESTAMP" &>>$LOG_FILE_NAME
+
+ if [ $USERID -ne 0 ]
+ then
+    echo "You must have sudo access to exit the script"
+    exit 1
+fi
 
 yum list installed mysql &>>$LOG_FILE_NAME
 if [ $? -ne 0 ]
