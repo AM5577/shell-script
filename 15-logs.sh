@@ -3,6 +3,7 @@ USERID=$(id -u)
 R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
+N=\e[0m
 LOGS_FOLDER="/var/log/shellscript-logs"
 LOGS_FILE=$(echo $0 | cut -d "." -f1 )
 TIMESTAMP=$(date +%Y-%m-%d-%H-%M-%S)
@@ -13,10 +14,10 @@ mkdir -p $LOGS_FOLDER
 VALIDATE(){
     if [ $1 -ne 0 ]
     then 
-        echo -e "$2..... $R Failure"
+        echo -e "$2..... $R Failure $N"
         exit 1
     else
-        echo -e "$2..... $R Success"
+        echo -e "$2..... $R Success $N"
     fi
 }
 
@@ -34,7 +35,7 @@ then
     yum install mysql -y 
     VALIDATE $? "Installing MYSQL"
 else
-    echo -e "Mysql is already $Y installed"
+    echo -e "Mysql is already $Y installed $N"
 fi
 
 yum list installed git &>>$LOG_FILE_NAME
@@ -43,6 +44,6 @@ then
     yum install git -y 
     VALIDATE $? "Installing git"
 else
-    echo -e "git is already $Y installed"
+    echo -e "git is already $Y installed $N"
 fi
 
